@@ -11,6 +11,7 @@ import { empty } from 'rxjs/observable/empty';
 import { TestBed } from '@angular/core/testing';
 import { ErrorHandler } from '@angular/core';
 import { Effect, EffectSources } from '../';
+import { EFFECTS_SOURCES_PROVIDERS } from '../src/angular/effect_sources';
 
 describe('EffectSources', () => {
   let mockErrorReporter: ErrorHandler;
@@ -18,7 +19,7 @@ describe('EffectSources', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EffectSources],
+      providers: [EFFECTS_SOURCES_PROVIDERS],
     });
 
     mockErrorReporter = TestBed.get(ErrorHandler);

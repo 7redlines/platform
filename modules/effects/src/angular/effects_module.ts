@@ -1,16 +1,17 @@
 import { NgModule, ModuleWithProviders, Type } from '@angular/core';
-import { EffectSources } from './effect_sources';
-import { Actions } from './actions';
+import { EffectSources } from './../effect_sources';
+import { ACTIONS_PROVIDERS } from './actions';
 import { ROOT_EFFECTS, FEATURE_EFFECTS } from './tokens';
-import { EffectsFeatureModule } from './effects_feature_module';
-import { EffectsRootModule } from './effects_root_module';
-import { EffectsRunner } from './effects_runner';
+import { NgEffectsFeatureModule } from './effects_feature_module';
+import { NgEffectsRootModule } from './effects_root_module';
+import { EFFECTS_RUNNER_PROVIDERS } from './effects_runner';
+import { EFFECTS_SOURCES_PROVIDERS } from './effect_sources';
 
 @NgModule({})
 export class EffectsModule {
   static forFeature(featureEffects: Type<any>[]): ModuleWithProviders {
     return {
-      ngModule: EffectsFeatureModule,
+      ngModule: NgEffectsFeatureModule,
       providers: [
         featureEffects,
         {
@@ -25,11 +26,11 @@ export class EffectsModule {
 
   static forRoot(rootEffects: Type<any>[]): ModuleWithProviders {
     return {
-      ngModule: EffectsRootModule,
+      ngModule: NgEffectsRootModule,
       providers: [
-        EffectsRunner,
-        EffectSources,
-        Actions,
+        EFFECTS_RUNNER_PROVIDERS,
+        EFFECTS_SOURCES_PROVIDERS,
+        ACTIONS_PROVIDERS,
         rootEffects,
         {
           provide: ROOT_EFFECTS,

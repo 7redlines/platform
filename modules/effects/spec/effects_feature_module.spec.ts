@@ -12,10 +12,12 @@ import { tap, withLatestFrom, map, mergeMap, filter } from 'rxjs/operators';
 import { Observable } from 'rxjs/Observable';
 import { cold } from 'jasmine-marbles';
 import { EffectSources } from '../src/effect_sources';
-import { FEATURE_EFFECTS } from '../src/tokens';
+import { FEATURE_EFFECTS } from '../src/angular/tokens';
 import { EffectsFeatureModule } from '../src/effects_feature_module';
 import { EffectsRootModule } from '../src/effects_root_module';
 import { EffectsModule, Effect, Actions, ofType } from '../';
+import { NgEffectsRootModule } from '../src/angular/effects_root_module';
+import { NgEffectsFeatureModule } from '../src/angular/effects_feature_module';
 
 describe('Effects Feature Module', () => {
   describe('when registered', () => {
@@ -29,7 +31,7 @@ describe('Effects Feature Module', () => {
       TestBed.configureTestingModule({
         providers: [
           {
-            provide: EffectsRootModule,
+            provide: NgEffectsRootModule,
             useValue: {
               addEffects: jasmine.createSpy('addEffects'),
             },
@@ -38,15 +40,15 @@ describe('Effects Feature Module', () => {
             provide: FEATURE_EFFECTS,
             useValue: effectSourceGroups,
           },
-          EffectsFeatureModule,
+          NgEffectsFeatureModule,
         ],
       });
 
-      mockEffectSources = TestBed.get(EffectsRootModule);
+      mockEffectSources = TestBed.get(NgEffectsRootModule);
     });
 
     it('should add all effects when instantiated', () => {
-      TestBed.get(EffectsFeatureModule);
+      TestBed.get(NgEffectsFeatureModule);
 
       expect(mockEffectSources.addEffects).toHaveBeenCalledWith(sourceA);
       expect(mockEffectSources.addEffects).toHaveBeenCalledWith(sourceB);

@@ -1,4 +1,3 @@
-import { NgModule, Inject, Optional } from '@angular/core';
 import {
   StoreModule,
   Store,
@@ -7,19 +6,17 @@ import {
 } from '@ngrx/store';
 import { EffectsRunner } from './effects_runner';
 import { EffectSources } from './effect_sources';
-import { ROOT_EFFECTS } from './tokens';
 
 export const ROOT_EFFECTS_INIT = '@ngrx/effects/init';
 
-@NgModule({})
 export class EffectsRootModule {
   constructor(
     private sources: EffectSources,
     runner: EffectsRunner,
     store: Store<any>,
-    @Inject(ROOT_EFFECTS) rootEffects: any[],
-    @Optional() storeRootModule: StoreRootModule,
-    @Optional() storeFeatureModule: StoreFeatureModule
+    rootEffects: any[],
+    storeRootModule: StoreRootModule,
+    storeFeatureModule: StoreFeatureModule
   ) {
     runner.start();
 

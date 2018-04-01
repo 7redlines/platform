@@ -8,6 +8,8 @@ export { NgState, STATE_PROVIDERS } from './state';
 export { NgStore, STORE_PROVIDERS } from './store';
 export {
   StoreModule,
+  NgStoreRootModule,
+  NgStoreFeatureModule,
   _createFeatureReducers,
   _createStoreReducers,
 } from './store_module';

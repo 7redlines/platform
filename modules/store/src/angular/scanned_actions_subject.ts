@@ -11,5 +11,9 @@ export class NgScannedActionsSubject extends ScannedActionsSubject
 
 export const SCANNED_ACTIONS_SUBJECT_PROVIDERS: Provider[] = [
   NgScannedActionsSubject,
-  { provide: ScannedActionsSubject, useExisting: NgScannedActionsSubject },
+  {
+    provide: ScannedActionsSubject,
+    deps: [NgScannedActionsSubject],
+    useExisting: NgScannedActionsSubject,
+  },
 ];

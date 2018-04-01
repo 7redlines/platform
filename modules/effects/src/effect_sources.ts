@@ -8,15 +8,17 @@ import { concat } from 'rxjs/observable/concat';
 import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import { Notification } from 'rxjs/Notification';
-import { ErrorHandler, Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { EffectNotification, verifyOutput } from './effect_notification';
+import {
+  EffectNotification,
+  verifyOutput,
+  IErrorHandler,
+} from './effect_notification';
 import { getSourceForInstance } from './effects_metadata';
 import { resolveEffectSource } from './effects_resolver';
 
-@Injectable()
 export class EffectSources extends Subject<any> {
-  constructor(private errorHandler: ErrorHandler) {
+  constructor(private errorHandler: IErrorHandler) {
     super();
   }
 

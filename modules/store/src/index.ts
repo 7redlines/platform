@@ -51,6 +51,8 @@ export {
 
 export {
   StoreModule,
+  NgStoreRootModule,
+  NgStoreFeatureModule,
   _createStoreReducers,
   _createFeatureReducers,
 } from './angular/store_module';

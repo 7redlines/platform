@@ -13,6 +13,7 @@ import { Actions, ofType } from '../';
 import { map, toArray, switchMap } from 'rxjs/operators';
 import { hot, cold } from 'jasmine-marbles';
 import { of } from 'rxjs/observable/of';
+import { ACTIONS_PROVIDERS } from '../src/angular/actions';
 
 describe('Actions', function() {
   let actions$: Actions;
@@ -35,7 +36,7 @@ describe('Actions', function() {
   beforeEach(function() {
     const injector = ReflectiveInjector.resolveAndCreate([
       StoreModule.forRoot(reducer).providers || [],
-      Actions,
+      ACTIONS_PROVIDERS,
     ]);
 
     actions$ = injector.get(Actions);

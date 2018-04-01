@@ -1,7 +1,6 @@
 import { Observable } from 'rxjs/Observable';
 import { Notification } from 'rxjs/Notification';
 import { Action } from '@ngrx/store';
-import { ErrorHandler } from '@angular/core';
 
 export interface EffectNotification {
   effect: Observable<any> | (() => Observable<any>);
@@ -11,15 +10,22 @@ export interface EffectNotification {
   notification: Notification<Action | null | undefined>;
 }
 
+export interface IErrorHandler {
+  handleError(error: any): void;
+}
+
 export function verifyOutput(
   output: EffectNotification,
-  reporter: ErrorHandler
+  reporter: IErrorHandler
 ) {
   reportErrorThrown(output, reporter);
   reportInvalidActions(output, reporter);
 }
 
-function reportErrorThrown(output: EffectNotification, reporter: ErrorHandler) {
+function reportErrorThrown(
+  output: EffectNotification,
+  reporter: IErrorHandler
+) {
   if (output.notification.kind === 'E') {
     reporter.handleError(output.notification.error);
   }
@@ -27,7 +33,7 @@ function reportErrorThrown(output: EffectNotification, reporter: ErrorHandler) {
 
 function reportInvalidActions(
   output: EffectNotification,
-  reporter: ErrorHandler
+  reporter: IErrorHandler
 ) {
   if (output.notification.kind === 'N') {
     const action = output.notification.value;

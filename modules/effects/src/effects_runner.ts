@@ -1,10 +1,8 @@
 import { Subscription } from 'rxjs/Subscription';
-import { Injectable, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { EffectSources } from './effect_sources';
 
-@Injectable()
-export class EffectsRunner implements OnDestroy {
+export class EffectsRunner {
   private effectsSubscription: Subscription | null = null;
 
   constructor(
@@ -20,7 +18,7 @@ export class EffectsRunner implements OnDestroy {
     }
   }
 
-  ngOnDestroy() {
+  dispose() {
     if (this.effectsSubscription) {
       this.effectsSubscription.unsubscribe();
       this.effectsSubscription = null;

@@ -8,7 +8,7 @@ import {
   INIT,
 } from '@ngrx/store';
 import { ROOT_EFFECTS_INIT } from '../src/effects_root_module';
-import { EffectsModule } from '../src/effects_module';
+import { EffectsModule } from '../src/angular/effects_module';
 
 describe('Effects Root Module', () => {
   const foo = 'foo';
