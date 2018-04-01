@@ -1,4 +1,3 @@
-import { Injectable, Provider } from '@angular/core';
 import { Observer } from 'rxjs/Observer';
 import { Observable } from 'rxjs/Observable';
 import { Operator } from 'rxjs/Operator';
@@ -10,7 +9,6 @@ import { ActionsSubject } from './actions_subject';
 import { StateObservable } from './state';
 import { ReducerManager } from './reducer_manager';
 
-@Injectable()
 export class Store<T> extends Observable<T> implements Observer<Action> {
   constructor(
     state$: StateObservable,
@@ -102,8 +100,6 @@ export class Store<T> extends Observable<T> implements Observer<Action> {
     this.reducerManager.removeReducer(key);
   }
 }
-
-export const STORE_PROVIDERS: Provider[] = [Store];
 
 export function select<T, K>(
   mapFn: ((state: T) => K) | string

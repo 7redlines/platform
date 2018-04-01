@@ -254,11 +254,11 @@ describe('ngRx Store', () => {
       expect(dispatcherSubscription.closed).toBe(false);
     });
 
-    it('should complete if the dispatcher is destroyed', () => {
+    it('should complete if the dispatcher is disposed', () => {
       const storeSubscription = store.subscribe();
       const dispatcherSubscription = dispatcher.subscribe();
 
-      dispatcher.ngOnDestroy();
+      dispatcher.dispose();
 
       expect(dispatcherSubscription.closed).toBe(true);
     });

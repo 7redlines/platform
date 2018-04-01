@@ -1,4 +1,3 @@
-import { Injectable, Inject, OnDestroy, Provider } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import {
@@ -9,7 +8,6 @@ import {
   MetaReducer,
   StoreFeature,
 } from './models';
-import { INITIAL_STATE, INITIAL_REDUCERS, REDUCER_FACTORY } from './tokens';
 import {
   omit,
   createReducerFactory,
@@ -23,14 +21,11 @@ export abstract class ReducerObservable extends Observable<
 export abstract class ReducerManagerDispatcher extends ActionsSubject {}
 export const UPDATE = '@ngrx/store/update-reducers' as '@ngrx/store/update-reducers';
 
-@Injectable()
-export class ReducerManager extends BehaviorSubject<ActionReducer<any, any>>
-  implements OnDestroy {
+export class ReducerManager extends BehaviorSubject<ActionReducer<any, any>> {
   constructor(
     private dispatcher: ReducerManagerDispatcher,
-    @Inject(INITIAL_STATE) private initialState: any,
-    @Inject(INITIAL_REDUCERS) private reducers: ActionReducerMap<any, any>,
-    @Inject(REDUCER_FACTORY)
+    private initialState: any,
+    private reducers: ActionReducerMap<any, any>,
     private reducerFactory: ActionReducerFactory<any, any>
   ) {
     super(reducerFactory(reducers, initialState));
@@ -78,13 +73,7 @@ export class ReducerManager extends BehaviorSubject<ActionReducer<any, any>>
     });
   }
 
-  ngOnDestroy() {
+  dispose() {
     this.complete();
   }
 }
-
-export const REDUCER_MANAGER_PROVIDERS: Provider[] = [
-  ReducerManager,
-  { provide: ReducerObservable, useExisting: ReducerManager },
-  { provide: ReducerManagerDispatcher, useExisting: ActionsSubject },
-];

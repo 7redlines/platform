@@ -1,4 +1,3 @@
-import { Injectable, Inject, OnDestroy, Provider } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Subscription } from 'rxjs/Subscription';
@@ -8,14 +7,12 @@ import { withLatestFrom } from 'rxjs/operator/withLatestFrom';
 import { scan } from 'rxjs/operator/scan';
 import { ActionsSubject, INIT } from './actions_subject';
 import { Action, ActionReducer } from './models';
-import { INITIAL_STATE } from './tokens';
 import { ReducerObservable } from './reducer_manager';
 import { ScannedActionsSubject } from './scanned_actions_subject';
 
 export abstract class StateObservable extends Observable<any> {}
 
-@Injectable()
-export class State<T> extends BehaviorSubject<any> implements OnDestroy {
+export class State<T> extends BehaviorSubject<any> {
   static readonly INIT = INIT;
 
   private stateSubscription: Subscription;
@@ -24,7 +21,7 @@ export class State<T> extends BehaviorSubject<any> implements OnDestroy {
     actions$: ActionsSubject,
     reducer$: ReducerObservable,
     scannedActions: ScannedActionsSubject,
-    @Inject(INITIAL_STATE) initialState: any
+    initialState: any
   ) {
     super(initialState);
 
@@ -43,7 +40,7 @@ export class State<T> extends BehaviorSubject<any> implements OnDestroy {
     });
   }
 
-  ngOnDestroy() {
+  dispose() {
     this.stateSubscription.unsubscribe();
     this.complete();
   }
@@ -60,8 +57,3 @@ export function reduceState<T, V extends Action = Action>(
   const { state } = stateActionPair;
   return { state: reducer(state, action), action };
 }
-
-export const STATE_PROVIDERS: Provider[] = [
-  State,
-  { provide: StateObservable, useExisting: State },
-];

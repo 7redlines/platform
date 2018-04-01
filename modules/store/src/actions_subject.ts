@@ -1,4 +1,3 @@
-import { Injectable, OnDestroy, Provider } from '@angular/core';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { Observable } from 'rxjs/Observable';
 import { Observer } from 'rxjs/Observer';
@@ -6,9 +5,7 @@ import { Action } from './models';
 
 export const INIT = '@ngrx/store/init' as '@ngrx/store/init';
 
-@Injectable()
-export class ActionsSubject extends BehaviorSubject<Action>
-  implements OnDestroy {
+export class ActionsSubject extends BehaviorSubject<Action> {
   constructor() {
     super({ type: INIT });
   }
@@ -27,9 +24,7 @@ export class ActionsSubject extends BehaviorSubject<Action>
     /* noop */
   }
 
-  ngOnDestroy() {
+  dispose() {
     super.complete();
   }
 }
-
-export const ACTIONS_SUBJECT_PROVIDERS: Provider[] = [ActionsSubject];

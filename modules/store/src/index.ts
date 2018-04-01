@@ -27,6 +27,13 @@ export {
   MemoizedSelector,
 } from './selector';
 export { State, StateObservable, reduceState } from './state';
+
+export {
+  StoreRootModule,
+  StoreFeatureModule,
+  _initialStateFactory,
+} from './store_module';
+
 export {
   INITIAL_STATE,
   _REDUCER_FACTORY,
@@ -40,12 +47,10 @@ export {
   _FEATURE_REDUCERS,
   FEATURE_REDUCERS,
   _FEATURE_REDUCERS_TOKEN,
-} from './tokens';
+} from './angular/tokens';
+
 export {
   StoreModule,
-  StoreRootModule,
-  StoreFeatureModule,
-  _initialStateFactory,
   _createStoreReducers,
   _createFeatureReducers,
-} from './store_module';
+} from './angular/store_module';

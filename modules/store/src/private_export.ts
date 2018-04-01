@@ -7,5 +7,5 @@ export {
   REDUCER_FACTORY,
   INITIAL_REDUCERS,
   STORE_FEATURES,
-} from './tokens';
+} from './angular/tokens';
 export { StoreRootModule, StoreFeatureModule } from './store_module';
